@@ -1,9 +1,8 @@
 // Задание здесь: https://lms.synergy.ru/learning/view/68550/?groupPeriodId=1045153&disciplineVersionId=25858&start=1
 
-import java.io.IOException;
 import java.util.Scanner;
 
-public class Draft1_While_1000_Files_etc {
+public class Draft1_Whole_Video_While_1000_Files_etc {
     public static void main(String[] args) {
 
 //        1 код
@@ -60,5 +59,9 @@ public class Draft1_While_1000_Files_etc {
 //        Код 6
 //        factorial здесь видео мин 28.09 https://lms.synergy.ru/learning/view/68494/?groupPeriodId=1045153&disciplineVersionId=25858&start=1
 
+//        Resume Program Продолжить здесь видео мин 28.17 https://lms.synergy.ru/learning/view/68494/?groupPeriodId=1045153&disciplineVersionId=25858&start=1
+
+//        Код 7
+//        Точка елочкой здесь видео мин 32.36 https://lms.synergy.ru/learning/view/68494/?groupPeriodId=1045153&disciplineVersionId=25858&start=1
     }
 }
