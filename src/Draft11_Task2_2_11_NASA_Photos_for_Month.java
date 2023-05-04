@@ -7,7 +7,7 @@ import java.io.File;
 
 // Задание здесь: https://lms.synergy.ru/learning/view/68552/?groupPeriodId=1045153&disciplineVersionId=25858&start=1
 // Видеоурок здесь: https://lms.synergy.ru/learning/view/68494
-public class Draft10_Task2_2_11_NASA_Photos_for_Month {
+public class Draft11_Task2_2_11_NASA_Photos_for_Month {
     // Как создать файл .txt и как сделать запись в него, инфо здесь: https://yandex.ru/video/preview/9761637152705084468
 
     //        Пример 5
