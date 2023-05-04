@@ -40,7 +40,7 @@ public class Draft8_Task2_2_8_In_Turn {
         System.out.println("Второй игрок создает файл 'textForTask_8_Second_Player.txt'. В нем две строки: " +
                 "секретное слово и подсказка: \nМадрид\nИспания\n"); // инфо, как создать файл txt здесь: https://yandex.ru/video/preview/9761637152705084468
         System.out.println("Подсказка: \nИспания\n");
-        String secrWord = "Мадрид";
+        String secrWord_Second_Player = "Мадрид";
         File myFile_Second_Player = new File("src\\" + "textForTask_8_Second_Player.txt");
 
         try {
@@ -57,19 +57,41 @@ public class Draft8_Task2_2_8_In_Turn {
         }
 
         // Теперь поочерёдно вводят слова
-        Scanner scanner = new Scanner(System.in); // видео мин 23.05
-        System.out.println("Первый игрок: введите строку (т.е. предполагаемое секретное слово): ");
-        String str = scanner.nextLine();
+        String gameOver = "Правильно!";
 
-        while (!str.equals("Каракас")) {
-            if ((secrWord.contains(str)) && (!str.equals(""))) {
+        // Первый игрок вводит, смотрит ответ
+        Scanner scanner_FromFirst_Player = new Scanner(System.in); // видео мин 23.05
+        System.out.println("Первый игрок: введите строку (т.е. предполагаемое секретное слово): ");
+        String str_ForFirstPl = scanner_FromFirst_Player.nextLine();
+
+
+        while (!str_ForFirstPl.equals(secrWord_Second_Player)) {
+            if ((secrWord_Second_Player.contains(str_ForFirstPl)) && (!str_ForFirstPl.equals(""))) {
                 System.out.println("Горячо.");
-                System.out.println("Введите другую строку (т.е. предполагаемое секретное слово): ");
-                str = scanner.nextLine();
+                System.out.println("Первый игрок: введите другую строку (т.е. предполагаемое секретное слово): ");
+                str_ForFirstPl = scanner_FromFirst_Player.nextLine();
             } else {
                 System.out.println("Не верно.");
-                System.out.println("Введите другую строку (т.е. предполагаемое секретное слово): ");
-                str = scanner.nextLine();
+                System.out.println("Первый игрок: введите другую строку (т.е. предполагаемое секретное слово): ");
+                str_ForFirstPl = scanner_FromFirst_Player.nextLine();
+            }
+        }
+        System.out.println("Правильно!");
+
+        // Второй игрок вводит, смотрит ответ
+        Scanner scannerFromSecond_Player = new Scanner(System.in); // видео мин 23.05
+        System.out.println("Второй игрок: введите строку (т.е. предполагаемое секретное слово): ");
+        String str_ForSecondPl = scannerFromSecond_Player.nextLine();
+
+        while (!str_ForSecondPl.equals(secrWord_First_Player)) {
+            if ((secrWord_First_Player.contains(str_ForSecondPl)) && (!str_ForSecondPl.equals(""))) {
+                System.out.println("Горячо.");
+                System.out.println("Второй игрок: введите другую строку (т.е. предполагаемое секретное слово): ");
+                str_ForSecondPl = scannerFromSecond_Player.nextLine();
+            } else {
+                System.out.println("Не верно.");
+                System.out.println("Второй игрок: введите другую строку (т.е. предполагаемое секретное слово): ");
+                str_ForSecondPl = scannerFromSecond_Player.nextLine();
             }
         }
         System.out.println("Правильно!");
@@ -82,66 +104,90 @@ public class Draft8_Task2_2_8_In_Turn {
 
 
 //    //        Пример 2 (Правильный, но недоделанный) ПППППППППППППППППППППППППППППППППППППППППППППППППППППППППППППППППППППП
-//    public static void main(String[] args) throws IOException {
-//        System.out.println("Задание: \n8.\tПервый игрок сохраняет слово и подсказку в первый файл, второй игрок во второй. \nИгра начинается, выводятся подсказки, игроки по-очереди пытаются отгадать слово \nпротивника.\n");
-//        System.out.println("Решение: ");
+//public static void main(String[] args) throws IOException {
+//    System.out.println("Задание: \n8.\tПервый игрок сохраняет слово и подсказку в первый файл, второй игрок во второй. \nИгра начинается, выводятся подсказки, игроки по-очереди пытаются отгадать слово \nпротивника.\n");
+//    System.out.println("Решение: ");
 //
-//        // Первый игрок создает файл и пишет подсказку
-//        System.out.println("Первый игрок создает файл 'textForTask_8_First_Player.txt'. В нем две строки: " +
-//                "секретное слово и подсказка: \nПариж\nФранция\n"); // инфо, как создать файл txt здесь: https://yandex.ru/video/preview/9761637152705084468
-//        System.out.println("Подсказка: \nФранция\n");
-//        String secrWord_First_Player = "Париж";
-//        File myFile_First_Player = new File("src\\" + "textForTask_8_First_Player.txt");
+//    // Первый игрок создает файл и пишет подсказку
+//    System.out.println("Первый игрок создает файл 'textForTask_8_First_Player.txt'. В нем две строки: " +
+//            "секретное слово и подсказка: \nПариж\nФранция\n"); // инфо, как создать файл txt здесь: https://yandex.ru/video/preview/9761637152705084468
+//    System.out.println("Подсказка: \nФранция\n");
+//    String secrWord_First_Player = "Париж";
+//    File myFile_First_Player = new File("src\\" + "textForTask_8_First_Player.txt");
 //
-//        try {
-//            PrintWriter writer_First_Player = new PrintWriter(new BufferedWriter(new FileWriter(myFile_First_Player, false)));
-//            writer_First_Player.println("Париж");
-//            writer_First_Player.flush();
-//            writer_First_Player.close();
-//            PrintWriter writer2_First_Player = new PrintWriter(new BufferedWriter(new FileWriter(myFile_First_Player, true)));
-//            writer2_First_Player.println("Франция");
+//    try {
+//        PrintWriter writer_First_Player = new PrintWriter(new BufferedWriter(new FileWriter(myFile_First_Player, false)));
+//        writer_First_Player.println("Париж");
+//        writer_First_Player.flush();
+//        writer_First_Player.close();
+//        PrintWriter writer2_First_Player = new PrintWriter(new BufferedWriter(new FileWriter(myFile_First_Player, true)));
+//        writer2_First_Player.println("Франция");
 ////            writer2_First_Player.flush();
-//            writer2_First_Player.close();
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
+//        writer2_First_Player.close();
+//    } catch (IOException ex) {
+//        ex.printStackTrace();
+//    }
 //
-//        // Второй игрок создает файл и пишет подсказку
-//        System.out.println("Второй игрок создает файл 'textForTask_8_Second_Player.txt'. В нем две строки: " +
-//                "секретное слово и подсказка: \nМадрид\nИспания\n"); // инфо, как создать файл txt здесь: https://yandex.ru/video/preview/9761637152705084468
-//        System.out.println("Подсказка: \nИспания\n");
-//        String secrWord = "Мадрид";
-//        File myFile_Second_Player = new File("src\\" + "textForTask_8_Second_Player.txt");
+//    // Второй игрок создает файл и пишет подсказку
+//    System.out.println("Второй игрок создает файл 'textForTask_8_Second_Player.txt'. В нем две строки: " +
+//            "секретное слово и подсказка: \nМадрид\nИспания\n"); // инфо, как создать файл txt здесь: https://yandex.ru/video/preview/9761637152705084468
+//    System.out.println("Подсказка: \nИспания\n");
+//    String secrWord_Second_Player = "Мадрид";
+//    File myFile_Second_Player = new File("src\\" + "textForTask_8_Second_Player.txt");
 //
-//        try {
-//            PrintWriter writer_Second_Player = new PrintWriter(new BufferedWriter(new FileWriter(myFile_Second_Player, false)));
-//            writer_Second_Player.println("Мадрид");
-//            writer_Second_Player.flush();
-//            writer_Second_Player.close();
-//            PrintWriter writer2_Second_Player = new PrintWriter(new BufferedWriter(new FileWriter(myFile_Second_Player, true)));
-//            writer2_Second_Player.println("Испания");
+//    try {
+//        PrintWriter writer_Second_Player = new PrintWriter(new BufferedWriter(new FileWriter(myFile_Second_Player, false)));
+//        writer_Second_Player.println("Мадрид");
+//        writer_Second_Player.flush();
+//        writer_Second_Player.close();
+//        PrintWriter writer2_Second_Player = new PrintWriter(new BufferedWriter(new FileWriter(myFile_Second_Player, true)));
+//        writer2_Second_Player.println("Испания");
 ////            writer2_Second_Player.flush();
-//            writer2_Second_Player.close();
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
+//        writer2_Second_Player.close();
+//    } catch (IOException ex) {
+//        ex.printStackTrace();
+//    }
 //
-//        Scanner scanner = new Scanner(System.in); // видео мин 23.05
-//        System.out.println("Введите строку (т.е. предполагаемое секретное слово): ");
-//        String str = scanner.nextLine();
+//    // Теперь поочерёдно вводят слова
+//    String gameOver = "Правильно!";
 //
-//        while (!str.equals("Каракас")) {
-//            if ((secrWord.contains(str)) && (!str.equals(""))) {
-//                System.out.println("Горячо.");
-//                System.out.println("Введите другую строку (т.е. предполагаемое секретное слово): ");
-//                str = scanner.nextLine();
-//            } else {
-//                System.out.println("Не верно.");
-//                System.out.println("Введите другую строку (т.е. предполагаемое секретное слово): ");
-//                str = scanner.nextLine();
-//            }
+//    // Первый игрок вводит, смотрит ответ
+//    Scanner scanner_FromFirst_Player = new Scanner(System.in); // видео мин 23.05
+//    System.out.println("Первый игрок: введите строку (т.е. предполагаемое секретное слово): ");
+//    String str_ForFirstPl = scanner_FromFirst_Player.nextLine();
+//
+//
+//    while (!str_ForFirstPl.equals(secrWord_Second_Player)) {
+//        if ((secrWord_Second_Player.contains(str_ForFirstPl)) && (!str_ForFirstPl.equals(""))) {
+//            System.out.println("Горячо.");
+//            System.out.println("Первый игрок: введите другую строку (т.е. предполагаемое секретное слово): ");
+//            str_ForFirstPl = scanner_FromFirst_Player.nextLine();
+//        } else {
+//            System.out.println("Не верно.");
+//            System.out.println("Первый игрок: введите другую строку (т.е. предполагаемое секретное слово): ");
+//            str_ForFirstPl = scanner_FromFirst_Player.nextLine();
 //        }
-//        System.out.println("Правильно!");
+//    }
+//    System.out.println("Правильно!");
+//
+//    // Второй игрок вводит, смотрит ответ
+//    Scanner scannerFromSecond_Player = new Scanner(System.in); // видео мин 23.05
+//    System.out.println("Второй игрок: введите строку (т.е. предполагаемое секретное слово): ");
+//    String str_ForSecondPl = scannerFromSecond_Player.nextLine();
+//
+//    while (!str_ForSecondPl.equals(secrWord_First_Player)) {
+//        if ((secrWord_First_Player.contains(str_ForSecondPl)) && (!str_ForSecondPl.equals(""))) {
+//            System.out.println("Горячо.");
+//            System.out.println("Второй игрок: введите другую строку (т.е. предполагаемое секретное слово): ");
+//            str_ForSecondPl = scannerFromSecond_Player.nextLine();
+//        } else {
+//            System.out.println("Не верно.");
+//            System.out.println("Второй игрок: введите другую строку (т.е. предполагаемое секретное слово): ");
+//            str_ForSecondPl = scannerFromSecond_Player.nextLine();
+//        }
+//    }
+//    System.out.println("Правильно!");
+//
 //
 //} //        Конец Примера 2 (Правильный, но недоделанный) ККККККККККККККККККККККККККККККККККК
 
