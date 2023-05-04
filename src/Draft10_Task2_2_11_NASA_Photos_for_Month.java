@@ -1,53 +1,86 @@
-import org.junit.Test;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
-import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 /* 11.	Сохраните снимки NASA за январь 2022 года*/
 
 // Задание здесь: https://lms.synergy.ru/learning/view/68552/?groupPeriodId=1045153&disciplineVersionId=25858&start=1
 // Видеоурок здесь: https://lms.synergy.ru/learning/view/68494
-public class Draft4_2_Task2_2_11_NASA_Photos_for_Month {
+public class Draft10_Task2_2_11_NASA_Photos_for_Month {
     // Как создать файл .txt и как сделать запись в него, инфо здесь: https://yandex.ru/video/preview/9761637152705084468
 
-    //        Пример 4
+    //        Пример 5
     public static void main(String[] args) throws IOException {
 
-        try (FileInputStream inputStream = new FileInputStream("file.txt")) {
-            File directory = new File("src/folder");
-            if (!directory.exists()) directory.mkdir();
+//        // КУСОК ИЗ Whole_Video
+//        //        Код 1
+//        //        int x = 1;
+//        //        while (x < 11) {  // видео мин 02.15
+//        ////            File file = new File("C:\\Users\\PC\\IdeaProjectsDrafts\\Draft230429_Module2_Urok2\\files\\" + "File" + x);
+//        //            System.out.println("Loop can do a lot of things.");
+//        //            File file = new File("files\\" + "File" + x);
+//        //            file.createNewFile();
+//        //            x = x + 1;
+//        //        }
 
-            try (FileOutputStream outputStream = new FileOutputStream("src/folder/file.txt")) {
-                byte[] bytes = new byte[inputStream.available()];
-                int length;
+        int x = 1;
+        while (x < 6) {
 
-                while ((length = inputStream.read(bytes)) != -1) {
-                    outputStream.write(bytes, 0, length);
+            try (FileInputStream inputStream = new FileInputStream("src/file.txt")) {
+                File directory = new File("src/folder");
+//            if (!directory.exists()) directory.mkdir();
+
+                try (FileOutputStream outputStream = new FileOutputStream(new File("src/folder/fileClone.txt"))) {
+//                if (!directory.exists()) directory.mkdir();
+                    byte[] bytes = new byte[inputStream.available()];
+                    int length;
+
+                    while ((length = inputStream.read(bytes)) != -1) {
+                        outputStream.write(bytes, 0, length);
+                    }
+                } catch (IOException exception) {
+                    System.out.println("Output error");
                 }
             } catch (IOException exception) {
-                System.out.println("Output error");
+                System.out.println("Input error");
+
             }
-        } catch (IOException exception) {
-            System.out.println("Input error");
-
+            x = x + 1;
         }
+
+
     }
+//        Конец Примера 5
 
 
-//        Конец Примера 4
+
+
+
+////        Пример 4
+//    public static void main(String[] args) throws IOException {
+//
+//        try (FileInputStream inputStream = new FileInputStream("src/file.txt")) {
+//            File directory = new File("src/folder");
+////            if (!directory.exists()) directory.mkdir();
+//
+//            try (FileOutputStream outputStream = new FileOutputStream("src/folder/fileClone.txt")) {
+////                if (!directory.exists()) directory.mkdir();
+//                byte[] bytes = new byte[inputStream.available()];
+//                int length;
+//
+//                while ((length = inputStream.read(bytes)) != -1) {
+//                    outputStream.write(bytes, 0, length);
+//                }
+//            } catch (IOException exception) {
+//                System.out.println("Output error");
+//            }
+//        } catch (IOException exception) {
+//            System.out.println("Input error");
+//
+//        }
+//    }
+////        Конец Примера 4
 
 
 ////        Пример 3

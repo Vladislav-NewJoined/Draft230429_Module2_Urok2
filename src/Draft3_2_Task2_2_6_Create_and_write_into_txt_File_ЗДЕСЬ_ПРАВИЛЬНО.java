@@ -34,20 +34,17 @@ public class Draft3_2_Task2_2_6_Create_and_write_into_txt_File_ЗДЕСЬ_ПРА
 //            }catch (IOException ex){
 //                ex.printStackTrace();
 //            }
-        System.out.println("Создаем файл txt. В нем две строки: секретное слово и подсказка: \nКаракас\nВенесуэлла\n");
+        System.out.println("Создаем файл 'textForTask_6.txt'. В нем две строки: секретное слово и подсказка: \nКаракас\nВенесуэлла\n");
 // инфо, как создать файл txt здесь: https://yandex.ru/video/preview/9761637152705084468
         System.out.println("Подсказка: \nВенесуэлла\n");
-        File myFile = new File("src\\" + "textForTask.txt");
+        File myFile = new File("src\\" + "textForTask_6.txt");
         try {
-//            File textForTask = new File("src\\" + "textForTask.txt"); // todo восстановить
-//            textForTask.createNewFile(); // todo восстановить
-            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(myFile, true)));
+            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(myFile, false)));
             writer.println("Каракас");
             writer.flush();
             writer.close();
             PrintWriter writer2 = new PrintWriter(new BufferedWriter(new FileWriter(myFile, true)));
             writer2.println("Венесуэлла");
-            writer2.flush();
             writer2.close();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -56,7 +53,7 @@ public class Draft3_2_Task2_2_6_Create_and_write_into_txt_File_ЗДЕСЬ_ПРА
 // Проверяем, отгадано или нет секретное слово.
         String str = ""; // видео мин 23.05
         Scanner scanner = new Scanner(System.in);
-            while (!str.equals("Каракас")) {
+//            while (!str.equals("Каракас")) {
                 System.out.println("Введите строку (т.е. предполагаемое секретное слово): ");
                 str = scanner.nextLine();
 
@@ -67,7 +64,6 @@ public class Draft3_2_Task2_2_6_Create_and_write_into_txt_File_ЗДЕСЬ_ПРА
                 }
                 System.out.println("Правильно!");
 
-            }
 
     }
 }
