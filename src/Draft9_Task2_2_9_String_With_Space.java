@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.Scanner;
 
 
@@ -10,13 +9,10 @@ import java.util.Scanner;
 
 public class Draft9_Task2_2_9_String_With_Space {
 
-    //        Пример 3 ППППППППППППППППППППППППППППППППППП Первый счетчик
+    //        Пример 3 ППППППППППППППППППППППППППППППППППП Первый счетчик УДАЛСЯ!!!!!!!!!!!!!!!!!! без вывода первой буквы
     public static void main(String[] args) {
-//        System.out.println("Задание: \n9.\tПока пользователь не введёт строку, " +
-//                "содержащую пробел, считывайте строки и выводите их первые буквы\n");
-//        System.out.println("Решение: ");
 
-        String strEntered = "";
+        String strEntered;
 
         Scanner scanner = new Scanner(System.in); // видео мин 23.05
         int i = 1;
@@ -27,24 +23,13 @@ public class Draft9_Task2_2_9_String_With_Space {
             strEntered = scanner.nextLine();
             if (!strEntered.contains(" ")) {
                 System.out.println("Строка не содержит пробела.");
-                System.out.print("Введите другую строку: ");
+                System.out.println("Первая буква строки: " + strEntered.charAt(0));
+                System.out.print("\nВведите другую строку: ");
             } else {
-                System.out.println("Строка содержит пробел! Конец программы!");
+                System.out.println("Строка содержит пробел!" + "\nПервая буква строки: " + strEntered.charAt(0) + "\nКонец программы!");
                 break;
             }
         }
-
-
-
-//        System.out.print("Введите строку: ");
-//        strEntered = scanner.nextLine();
-//        while (!strEntered.contains(" ")) {
-//            System.out.println("Строка не содержит пробела.");
-//            i++;
-//        }
-//        //        System.out.print("Введите строку: ");
-////        strEntered = scanner.nextLine();
-//        System.out.println("Строка содержит пробел! Конец программы!");
 } //        Конец Примера 3 КККККККККККККККК
 
 
@@ -83,6 +68,12 @@ public class Draft9_Task2_2_9_String_With_Space {
 ////        strEntered = scanner.nextLine();
 //        System.out.println("Строка содержит пробел! Конец программы!");
 //    } //        Конец Примера 2 КККККККККККККККК
+
+
+
+
+
+
 
 
 //    //        Пример 1 ПППППППППППППППППППППППППППППППП // из задания 7
