@@ -9,17 +9,19 @@ import java.util.Scanner;
 
 public class Draft9_Task2_2_9_String_With_Space {
 
-    //        Пример 3 ППППППППППППППППППППППППППППППППППП Первый счетчик УДАЛСЯ!!!!!!!!!!!!!!!!!! без вывода первой буквы
+    //        Пример 3 ППППППППППППППППППППППППППППППППППП Первый счетчик УДАЛСЯ!!!!!!!!!!!!!!!!!!
     public static void main(String[] args) {
+        System.out.println("Задание: \n9.\tПока пользователь не введёт строку, " +
+                "содержащую пробел, считывайте строки и выводите их первые буквы\n");
+        System.out.println("Решение: ");
 
         String strEntered;
 
         Scanner scanner = new Scanner(System.in); // видео мин 23.05
-        int i = 1;
         System.out.print("Введите строку: ");
 
         // Задаем действия для первого счетчика
-        while (i == 1) {
+        while (true) {
             strEntered = scanner.nextLine();
             if (!strEntered.contains(" ")) {
                 System.out.println("Строка не содержит пробела.");
