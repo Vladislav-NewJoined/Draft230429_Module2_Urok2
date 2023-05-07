@@ -1,15 +1,20 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import static java.lang.System.out;
 
 /* 11.	Сохраните снимки NASA за январь 2022 года*/
 // /Фото NASA здесь: https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
@@ -19,7 +24,73 @@ import java.util.List;
 
 public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
 
-////    //        Пример _ ППППППППППППППППППППППППППППППППППП здесь список дат месяца и утилита по скачиванию интернет страниц.
+
+//        Пример _ ППППППППППППППППППППППППППППППППППП  Сводим все воедино
+    public static void main(String[] args) throws IOException {
+        System.out.println("Задание: \n11.\tСохраните снимки NASA за январь 2022 года\n");
+        System.out.println("Решение: ");
+
+        // Создаем список дат января 2022
+        LocalDate ld = LocalDate.of(2022, 1, 1);
+        List<String> datesOfJan2022 = new ArrayList<>();
+        do {
+            System.out.println(ld.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            datesOfJan2022.add(ld.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            ld = ld.plusDays(1);
+        } while (ld.getDayOfMonth() > 1);  // arrive at 1st of next month
+        System.out.println(); // Добавляем пустую строку, как разделитель
+        System.out.println(datesOfJan2022);
+// Список дат января 2022 г. сформировали. Далее брать инфо из Примера 8.
+
+// Далее перебираем массив ArrayList с датами января 2022 г.
+        System.out.println();
+        for (int i = 1; i <= datesOfJan2022.size(); i++) {
+            String currentDate = datesOfJan2022.get(i-1);
+            System.out.println(currentDate);
+
+//        Таким образом, берем нужную нам дату, например 2022-01-12 перед ней дописываем '&date='
+//        и склеиваем с https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY , т.е.
+        /*String PageWithCodeOfCurrentDate = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY" + "&date=" + currentDate;
+        String currentCodeItself = downloadWebPage(PageWithCodeOfCurrentDate);
+        System.out.println(PageWithCodeOfCurrentDate);
+        System.out.println(currentCodeItself);*/
+
+
+
+        /*int urlBegin = currentCodeItself.lastIndexOf(",\"url");
+        int urlEnd = currentCodeItself.lastIndexOf("}");
+        String urlOfCurrentPhoto = currentCodeItself.substring(urlBegin + 8, urlEnd - 1);
+        System.out.println(urlOfCurrentPhoto);*/
+            /*try (InputStream in = new URL(urlOfCurrentPhoto).openStream()) {*/
+            try /*(InputStream in = (InputStream) Paths.get("NASA_Input\\input.jpg"))*/ {
+
+
+                Files.copy(Paths.get("NASA_Input\\input.jpg"), Paths.get("NASA_Photos_Of_January_2022\\" + "new" + i + ".jpg"), StandardCopyOption.COPY_ATTRIBUTES); /*переделать на COPY_ATTRIBUTES*/
+            } catch (IOException exception) {
+                out.println("Input/Output error");
+            }
+        }
+    }
+
+    /*private static String downloadWebPage (String url) throws IOException {
+        StringBuilder result = new StringBuilder();
+        String line;
+        URLConnection urlConnection = new URL(url).openConnection();
+        try (InputStream is = urlConnection.getInputStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+            while ((line = br.readLine()) != null) {
+                result.append(line);
+            }
+        }
+        return result.toString();
+    }*/
+
+
+//        Конец Примера _ КККККККККККККККК
+
+
+
+////    //        Пример 11 ППППППППППППППППППППППППППППППППППП здесь список дат месяца и утилита по скачиванию интернет страниц.
 //    public static void main(String[] args) throws IOException {
 //        // здесь фото за 2015/10/31:    https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031041238.png
 //        // здесь про то как получать фото:  https://youtu.be/5V2lZpEeRlA    или     https://www.youtube.com/watch?v=5V2lZpEeRlA
@@ -61,53 +132,127 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
 //        return result.toString();
 //    }
 //
-//    } //        Конец Примера _ КККККККККККККККК
+//    } //        Конец Примера 11 КККККККККККККККК
+
+
+
+
+
+//    //        Пример 10 ППППППППППППППППППППППППППППППППППП  Продолжаем искать способ копирования без перезаписи
+//    public static void main(String[] args) {
+//    String urlOfCurrentPhoto1 = "https://apod.nasa.gov/apod/image/2201/OrionStarFree3_Harbison_1080.jpg";
+//    String urlOfCurrentPhoto2 = "https://apod.nasa.gov/apod/image/2201/PIA19048europa1024.jpg";
+//    String urlOfCurrentPhoto3 = "https://apod.nasa.gov/apod/image/2201/DarkNebulaVd_HmoRuuth_960.jpg";
+//
+//        try /*(InputStream in = new URL(urlOfCurrentPhoto2).openStream())*/ {
+//            Path sourcePath = Path.of(urlOfCurrentPhoto2), destinationPath = Paths.get("NASA_Photos_Of_January_2022\\new.jpg");
+//            Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+//        } catch (IOException exception) {
+//            out.println("Input/Output error");
+//        }
+//    }
+//
+//    private static String downloadWebPage (String url) throws IOException {
+//        StringBuilder result = new StringBuilder();
+//        String line;
+//        URLConnection urlConnection = new URL(url).openConnection();
+//        try (InputStream is = urlConnection.getInputStream();
+//             BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+//            while ((line = br.readLine()) != null) {
+//                result.append(line);
+//            }
+//        }
+//        return result.toString();
+//    }
+//    //        Конец Примера 10 КККККККККККККККК
 
 
 
 
 
 
-    //        Пример 8 ППППППППППППППППППППППППППППППППППП  Как получить фото NASA за определенную дату.
-    public static void main(String[] args) throws IOException {
-//        Здесь про фото NASA из обучающего видео ( туториала ) в интернет
-//        https://youtu.be/5V2lZpEeRlA	мин 01.12 - получение исторических фото (за прошлые даты ); на мин 02.03. как нужную дату ввести
-//        Чтобы фото за нужную дату получить, нужно вот к этому https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY прибавить
-//        вот это &date=2022-01-12 и в итоге получить вот это https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2022-01-12
 
-//        Таким образом, берем нужную нам дату, например 2022-01-12 перед ней дописываем '&date='
-//        и склеиваем с https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY , т.е.
-        String currentDate = "2022-01-11";
-        String PageWithCodeOfCurrentDate = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY" + "&date=" + currentDate;
-        String currentCodeItself = downloadWebPage(PageWithCodeOfCurrentDate);
-        System.out.println(PageWithCodeOfCurrentDate);
-        System.out.println(currentCodeItself);
+////        Пример 9 ППППППППППППППППППППППППППППППППППП  Пробуем пример из интернета
+////        где файлы сохраняются в одну папку без перезаписи
+//public static <StringUTF16> void main(String[] args) {
+//
+//    String urlOfCurrentPhoto1 = "https://apod.nasa.gov/apod/image/2201/OrionStarFree3_Harbison_1080.jpg";
+//    String urlOfCurrentPhoto2 = "https://apod.nasa.gov/apod/image/2201/PIA19048europa1024.jpg";
+//    String urlOfCurrentPhoto3 = "https://apod.nasa.gov/apod/image/2201/DarkNebulaVd_HmoRuuth_960.jpg";
+//
+//    int counter = 0;
+//
+//    File savedPic = new File("NASA_Photos_Of_January_2022\\new" + counter + ".jpg");
+//
+//    try {
+//        counter++;
+//    } catch (Exception e) {
+//        e.printStackTrace();
+//    }
+//}
+//
+//    private static String downloadWebPage (String url) throws IOException {
+//        StringBuilder result = new StringBuilder();
+//        String line;
+//        URLConnection urlConnection = new URL(url).openConnection();
+//        try (InputStream is = urlConnection.getInputStream();
+//             BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+//            while ((line = br.readLine()) != null) {
+//                result.append(line);
+//            }
+//        }
+//        return result.toString();
+//    }
+//
+//
+////        Конец Примера 9 КККККККККККККККК
 
 
 
-       int urlBegin = currentCodeItself.lastIndexOf(",\"url");
-       int urlEnd = currentCodeItself.lastIndexOf("}");
-       String urlOfCurrentPhoto = currentCodeItself.substring(urlBegin + 8, urlEnd - 1);
-        System.out.println(urlOfCurrentPhoto);
-        try (InputStream in = new URL(urlOfCurrentPhoto).openStream()) {
-            Files.copy(in, Paths.get("NASA_Photos_Of_January_2022\\new.jpg"));
-        }
-    }
 
-    private static String downloadWebPage (String url) throws IOException {
-        StringBuilder result = new StringBuilder();
-        String line;
-        URLConnection urlConnection = new URL(url).openConnection();
-        try (InputStream is = urlConnection.getInputStream();
-             BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-            while ((line = br.readLine()) != null) {
-                result.append(line);
-            }
-        }
-        return result.toString();
-    }
 
-//    } //        Конец Примера 8 КККККККККККККККК
+//    //        Пример 8 ППППППППППППППППППППППППППППППППППП ЗДЕСЬ ПРАВИЛЬНЫЙ Files.copy и try Получаем фото NASA за определенную дату и сохраняем в папку (но не разными файлами, а пока с перезаписью).
+//    public static void main(String[] args) throws IOException {
+////        Здесь про фото NASA из обучающего видео ( туториала ) в интернет
+////        https://youtu.be/5V2lZpEeRlA	мин 01.12 - получение исторических фото (за прошлые даты ); на мин 02.03. как нужную дату ввести
+////        Чтобы фото за нужную дату получить, нужно вот к этому https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY прибавить
+////        вот это &date=2022-01-12 и в итоге получить вот это https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2022-01-12
+//
+////        Таким образом, берем нужную нам дату, например 2022-01-12 перед ней дописываем '&date='
+////        и склеиваем с https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY , т.е.
+//        String currentDate = "2022-01-22";
+//        String PageWithCodeOfCurrentDate = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY" + "&date=" + currentDate;
+//        String currentCodeItself = downloadWebPage(PageWithCodeOfCurrentDate);
+//        System.out.println(PageWithCodeOfCurrentDate);
+//        System.out.println(currentCodeItself);
+//
+//
+//
+//       int urlBegin = currentCodeItself.lastIndexOf(",\"url");
+//       int urlEnd = currentCodeItself.lastIndexOf("}");
+//       String urlOfCurrentPhoto = currentCodeItself.substring(urlBegin + 8, urlEnd - 1);
+//        System.out.println(urlOfCurrentPhoto);
+//        try (InputStream in = new URL(urlOfCurrentPhoto).openStream()) {
+//
+//
+//            Files.copy(in, Paths.get("NASA_Photos_Of_January_2022\\new.jpg"), StandardCopyOption.REPLACE_EXISTING); /*переделать на COPY_ATTRIBUTES*/
+//        }
+//    }
+//
+//    private static String downloadWebPage (String url) throws IOException {
+//        StringBuilder result = new StringBuilder();
+//        String line;
+//        URLConnection urlConnection = new URL(url).openConnection();
+//        try (InputStream is = urlConnection.getInputStream();
+//             BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+//            while ((line = br.readLine()) != null) {
+//                result.append(line);
+//            }
+//        }
+//        return result.toString();
+//    }
+//
+////    } //        Конец Примера 8 КККККККККККККККК
 
 
 
