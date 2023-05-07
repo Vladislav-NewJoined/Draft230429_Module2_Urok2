@@ -29,6 +29,9 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
     public static void main(String[] args) throws IOException {
         System.out.println("Задание: \n11.\tСохраните снимки NASA за январь 2022 года\n");
         System.out.println("Решение: ");
+        System.out.println("Создаем новую директорию, 'NASA_Photos_Of_January_2022', куда будем сохранять фотографии,\n" +
+                "по адресу: 'C:\\Users\\PC\\IdeaProjectsDrafts\\Draft230429_Module2_Urok2\\NASA_Photos_Of_January_2022',\n" +
+                "т.е. в корневом каталоге проекта.\n");
 
         // Создаем список дат января 2022
         LocalDate ld = LocalDate.of(2022, 1, 1);
@@ -41,6 +44,12 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
         System.out.println(); // Добавляем пустую строку, как разделитель
         System.out.println(datesOfJan2022);
 // Список дат января 2022 г. сформировали. Далее брать инфо из Примера 8.
+
+/* Создаем новую директорию, 'NASA_Photos_Of_January_2022', куда будем сохранять фотографии,
+   по адресу: 'C:\Users\PC\IdeaProjectsDrafts\Draft230429_Module2_Urok2\NASA_Photos_Of_January_2022',
+   т.е. в корневом каталоге проекта. */
+
+
 
 // Далее перебираем массив ArrayList с датами января 2022 г.
         System.out.println();
