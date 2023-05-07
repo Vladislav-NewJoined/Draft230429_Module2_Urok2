@@ -4,6 +4,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /* 11.	Сохраните снимки NASA за январь 2022 года*/
 // /Фото NASA здесь: https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
@@ -13,24 +17,37 @@ import java.net.URLConnection;
 
 public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
 
-//    //        Пример 7 ППППППППППППППППППППППППППППППППППП
+//    //        Пример 7 ППППППППППППППППППППППППППППППППППП здесь список дат месяца и утилита по скачиванию интернет страниц.
     public static void main(String[] args) throws IOException {
         // здесь фото за 2015/10/31:    https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031041238.png
-        // здесь про то как получать фото.
+        // здесь про то как получать фото:  https://youtu.be/5V2lZpEeRlA    или     https://www.youtube.com/watch?v=5V2lZpEeRlA
+
+        LocalDate ld = LocalDate.of(2022, 1, 1);
+        // Создаем список дат января 2022
+        List<String> datesOfJan2022 = new ArrayList<>();
+        do {
+            System.out.println(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            datesOfJan2022.add(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            ld = ld.plusDays(1);
+        } while (ld.getDayOfMonth() > 1);  // arrive at 1st of next month
+        System.out.println(); // Добавляем пустую строку, как разделитель
+        System.out.println(datesOfJan2022);
+
+
 
     }
-        private static String downloadWebPage (String url) throws IOException {
-            StringBuilder result = new StringBuilder();
-            String line;
-            URLConnection urlConnection = new URL(url).openConnection();
-            try (InputStream is = urlConnection.getInputStream();
-                 BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-                while ((line = br.readLine()) != null) {
-                    result.append(line);
-                }
+    private static String downloadWebPage (String url) throws IOException {
+        StringBuilder result = new StringBuilder();
+        String line;
+        URLConnection urlConnection = new URL(url).openConnection();
+        try (InputStream is = urlConnection.getInputStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+            while ((line = br.readLine()) != null) {
+                result.append(line);
             }
-            return result.toString();
         }
+        return result.toString();
+    }
 
 
 
@@ -300,14 +317,14 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
 //        LocalDate ld = LocalDate.of(2022, 1, 1);
 //
 //        // Создаем список дат января 2022
-//        List<String> datesOfJanList = new ArrayList<>();
+//        List<String> datesOfJan2022 = new ArrayList<>();
 //        do {
 //            System.out.println(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-//            datesOfJanList.add(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+//            datesOfJan2022.add(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 //            ld = ld.plusDays(1);
 //        } while (ld.getDayOfMonth() > 1);  // arrive at 1st of next month
 //        System.out.println(); // Добавляем пустую строку, как разделитель
-//        System.out.println(datesOfJanList);
+//        System.out.println(datesOfJan2022);
 //
 //
 //        // Сохраняем фотографии в файлы
