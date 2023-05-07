@@ -1,4 +1,9 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 /* 11.	Сохраните снимки NASA за январь 2022 года*/
 // /Фото NASA здесь: https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
@@ -10,8 +15,24 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
 
 //    //        Пример 7 ППППППППППППППППППППППППППППППППППП
     public static void main(String[] args) throws IOException {
-    // здесь фото за 2015/10/31:    https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031041238.png
-    // здесь про то как получать фото.
+        // здесь фото за 2015/10/31:    https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031041238.png
+        // здесь про то как получать фото.
+
+    }
+        private static String downloadWebPage (String url) throws IOException {
+            StringBuilder result = new StringBuilder();
+            String line;
+            URLConnection urlConnection = new URL(url).openConnection();
+            try (InputStream is = urlConnection.getInputStream();
+                 BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+                while ((line = br.readLine()) != null) {
+                    result.append(line);
+                }
+            }
+            return result.toString();
+        }
+
+
 
 
 //            synchronousRequest();
@@ -55,7 +76,7 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
 //
 //            // the response:
 //            System.out.println(response.body().get().title);
-    } //        Конец Примера 7 КККККККККККККККК
+//    } //        Конец Примера 7 КККККККККККККККК
 
 
 
