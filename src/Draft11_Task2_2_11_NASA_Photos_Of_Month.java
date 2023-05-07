@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,25 +19,81 @@ import java.util.List;
 
 public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
 
-//    //        Пример 7 ППППППППППППППППППППППППППППППППППП здесь список дат месяца и утилита по скачиванию интернет страниц.
+////    //        Пример _ ППППППППППППППППППППППППППППППППППП здесь список дат месяца и утилита по скачиванию интернет страниц.
+//    public static void main(String[] args) throws IOException {
+//        // здесь фото за 2015/10/31:    https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031041238.png
+//        // здесь про то как получать фото:  https://youtu.be/5V2lZpEeRlA    или     https://www.youtube.com/watch?v=5V2lZpEeRlA
+//
+//        LocalDate ld = LocalDate.of(2022, 1, 1);
+//        // Создаем список дат января 2022
+//        List<String> datesOfJan2022 = new ArrayList<>();
+//        do {
+//            System.out.println(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+//            datesOfJan2022.add(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+//            ld = ld.plusDays(1);
+//        } while (ld.getDayOfMonth() > 1);  // arrive at 1st of next month
+//        System.out.println(); // Добавляем пустую строку, как разделитель
+//        System.out.println(datesOfJan2022);
+//
+//        // КУСОК ИЗ Java Case_1_1_1
+//        String pageNasa = downloadWebPage("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY");
+//        int urlBegin = pageNasa.lastIndexOf("url");
+//        int urlEnd = pageNasa.lastIndexOf("}");
+//        String urlPhoto = pageNasa.substring(urlBegin + 6, urlEnd - 1);
+//            try (InputStream in = new URL(urlPhoto).openStream()) {
+//            Files.copy(in, Paths.get("new.jpg"));
+//        }
+//
+//            System.out.println("\n" + "Картинка сохранена!");
+//
+//
+//    }
+//    private static String downloadWebPage (String url) throws IOException {
+//        StringBuilder result = new StringBuilder();
+//        String line;
+//        URLConnection urlConnection = new URL(url).openConnection();
+//        try (InputStream is = urlConnection.getInputStream();
+//             BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+//            while ((line = br.readLine()) != null) {
+//                result.append(line);
+//            }
+//        }
+//        return result.toString();
+//    }
+//
+//    } //        Конец Примера _ КККККККККККККККК
+
+
+
+
+
+
+    //        Пример 8 ППППППППППППППППППППППППППППППППППП  Как получить фото NASA за определенную дату.
     public static void main(String[] args) throws IOException {
-        // здесь фото за 2015/10/31:    https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031041238.png
-        // здесь про то как получать фото:  https://youtu.be/5V2lZpEeRlA    или     https://www.youtube.com/watch?v=5V2lZpEeRlA
+//        Здесь про фото NASA из обучающего видео ( туториала ) в интернет
+//        https://youtu.be/5V2lZpEeRlA	мин 01.12 - получение исторических фото (за прошлые даты ); на мин 02.03. как нужную дату ввести
+//        Чтобы фото за нужную дату получить, нужно вот к этому https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY прибавить
+//        вот это &date=2022-01-12 и в итоге получить вот это https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2022-01-12
 
-        LocalDate ld = LocalDate.of(2022, 1, 1);
-        // Создаем список дат января 2022
-        List<String> datesOfJan2022 = new ArrayList<>();
-        do {
-            System.out.println(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            datesOfJan2022.add(ld.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            ld = ld.plusDays(1);
-        } while (ld.getDayOfMonth() > 1);  // arrive at 1st of next month
-        System.out.println(); // Добавляем пустую строку, как разделитель
-        System.out.println(datesOfJan2022);
-
+//        Таким образом, берем нужную нам дату, например 2022-01-12 перед ней дописываем '&date='
+//        и склеиваем с https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY , т.е.
+        String currentDate = "2022-01-11";
+        String PageWithCodeOfCurrentDate = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY" + "&date=" + currentDate;
+        String currentCodeItself = downloadWebPage(PageWithCodeOfCurrentDate);
+        System.out.println(PageWithCodeOfCurrentDate);
+        System.out.println(currentCodeItself);
 
 
+
+       int urlBegin = currentCodeItself.lastIndexOf(",\"url");
+       int urlEnd = currentCodeItself.lastIndexOf("}");
+       String urlOfCurrentPhoto = currentCodeItself.substring(urlBegin + 8, urlEnd - 1);
+        System.out.println(urlOfCurrentPhoto);
+        try (InputStream in = new URL(urlOfCurrentPhoto).openStream()) {
+            Files.copy(in, Paths.get("NASA_Photos_Of_January_2022\\new.jpg"));
+        }
     }
+
     private static String downloadWebPage (String url) throws IOException {
         StringBuilder result = new StringBuilder();
         String line;
@@ -49,51 +107,45 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
         return result.toString();
     }
 
+//    } //        Конец Примера 8 КККККККККККККККК
 
 
 
-//            synchronousRequest();
-//            asynchronousRequest();
+
+//
+////        Пример 7 ППППППППППППППППППППППППППППППППППП Сохранение фотографии NASA (другой, т.е. как пример) в папку
+//    public static void main(String[] args) throws IOException {
+//        // КУСОК ИЗ Java Case_1_1_1
+//        String pageNasa = downloadWebPage("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY");
+//        int urlBegin = pageNasa.lastIndexOf("url");
+//        int urlEnd = pageNasa.lastIndexOf("}");
+//        String urlPhoto = pageNasa.substring(urlBegin + 6, urlEnd - 1);
+//
+///* Создаем новую директорию, 'NASA_Photos_Of_January_2022', куда будем сохранять фотографии,
+//   по адресу: 'C:\Users\PC\IdeaProjectsDrafts\Draft230429_Module2_Urok2\NASA_Photos_Of_January_2022',
+//   т.е. в корневом каталоге проекта. */
+//
+//        try (InputStream in = new URL(urlPhoto).openStream()) {
+//            Files.copy(in, Paths.get("NASA_Photos_Of_January_2022\\new.jpg"));
 //        }
+//        System.out.println("\n" + "Картинка сохранена!");
+//    }
 //
-//        private static void asynchronousRequest() throws InterruptedException, ExecutionException {
-//
-//            // create a client
-//            var client = HttpClient.newHttpClient();
-//
-//            // create a request
-//            var request = HttpRequest.newBuilder(
-//                            URI.create("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"))
-//                    .header("accept", "application/json")
-//                    .build();
-//
-//            // use the client to send the request
-//            var responseFuture = client.sendAsync(request, new JsonBodyHandler<>(APOD.class));
-//
-//            // We can do other things here while the request is in-flight
-//
-//            // This blocks until the request is complete
-//            var response = responseFuture.get();
-//
-//            // the response:
-//            System.out.println(response.body().get().title);
+//    private static String downloadWebPage (String url) throws IOException {
+//        StringBuilder result = new StringBuilder();
+//        String line;
+//        URLConnection urlConnection = new URL(url).openConnection();
+//        try (InputStream is = urlConnection.getInputStream();
+//             BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+//            while ((line = br.readLine()) != null) {
+//                result.append(line);
+//            }
 //        }
+//        return result.toString();
+//    }
 //
-//        private static void synchronousRequest() throws IOException, InterruptedException {
-//            // create a client
-//            var client = HttpClient.newHttpClient();
 //
-//            // create a request
-//            var request = HttpRequest.newBuilder(
-//                    URI.create("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
-//            ).build();
-//
-//            // use the client to send the request
-//            HttpResponse<Supplier<APOD>> response = client.send(request, new JsonBodyHandler<>(APOD.class));
-//
-//            // the response:
-//            System.out.println(response.body().get().title);
-//    } //        Конец Примера 7 КККККККККККККККК
+////    } //        Конец Примера 7 КККККККККККККККК
 
 
 
