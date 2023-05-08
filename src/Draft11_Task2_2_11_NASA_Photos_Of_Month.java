@@ -57,31 +57,31 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
             String currentDate = datesOfJan2022.get(i-1);
             System.out.println(currentDate);
 
-//        Таким образом, берем нужную нам дату, например 2022-01-12 перед ней дописываем '&date='
+//        Чтобы получить url страницы с нужным нам кодом, берем нужную нам дату, например 2022-01-12 перед ней дописываем '&date='
 //        и склеиваем с https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY , т.е.
-        /*String PageWithCodeOfCurrentDate = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY" + "&date=" + currentDate;
+        String PageWithCodeOfCurrentDate = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY" + "&date=" + currentDate;
         String currentCodeItself = downloadWebPage(PageWithCodeOfCurrentDate);
         System.out.println(PageWithCodeOfCurrentDate);
-        System.out.println(currentCodeItself);*/
+        System.out.println(currentCodeItself);
 
 
 
-        /*int urlBegin = currentCodeItself.lastIndexOf(",\"url");
+        int urlBegin = currentCodeItself.lastIndexOf(",\"url");
         int urlEnd = currentCodeItself.lastIndexOf("}");
         String urlOfCurrentPhoto = currentCodeItself.substring(urlBegin + 8, urlEnd - 1);
-        System.out.println(urlOfCurrentPhoto);*/
-            /*try (InputStream in = new URL(urlOfCurrentPhoto).openStream()) {*/
-            try /*(InputStream in = (InputStream) Paths.get("NASA_Input\\input.jpg"))*/ {
+        System.out.println(urlOfCurrentPhoto);
+            try (InputStream in = new URL(urlOfCurrentPhoto).openStream()) {
+            /*try *//*(InputStream in = (InputStream) Paths.get("NASA_Input\\input.jpg"))*//* {*/
 
 
-                Files.copy(Paths.get("NASA_Input\\input.jpg"), Paths.get("NASA_Photos_Of_January_2022\\" + "new" + i + ".jpg"), StandardCopyOption.COPY_ATTRIBUTES); /*переделать на COPY_ATTRIBUTES*/
+                Files.copy(in, Paths.get("NASA_Photos_Of_January_2022\\" + "new" + i + ".jpg"), StandardCopyOption.COPY_ATTRIBUTES);
             } catch (IOException exception) {
                 out.println("Input/Output error");
             }
         }
     }
 
-    /*private static String downloadWebPage (String url) throws IOException {
+    private static String downloadWebPage (String url) throws IOException {
         StringBuilder result = new StringBuilder();
         String line;
         URLConnection urlConnection = new URL(url).openConnection();
@@ -92,7 +92,7 @@ public class Draft11_Task2_2_11_NASA_Photos_Of_Month {
             }
         }
         return result.toString();
-    }*/
+    }
 
 
 //        Конец Примера _ КККККККККККККККК
